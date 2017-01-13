@@ -354,7 +354,7 @@ string_get_set_test.cmj : mt.cmj
 string_literal_print_test.cmj : mt.cmj
 string_runtime_test.cmj : ../stdlib/string.cmj mt.cmj ../stdlib/list.cmj \
     ../runtime/caml_string.cmj ../stdlib/bytes.cmj
-string_set.cmj : ../stdlib/string.cmj set_gen.cmj ../stdlib/list.cmj \
+string_set.cmj : set_gen.cmj ../stdlib/list.cmj ext_string.cmj \
     ../stdlib/array.cmj
 string_set_test.cmj : string_set.cmj mt.cmj
 string_test.cmj : ../stdlib/string.cmj mt.cmj ../stdlib/list.cmj \

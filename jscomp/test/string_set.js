@@ -2,17 +2,23 @@
 
 var Set_gen                 = require("./set_gen");
 var $$Array                 = require("../../lib/js/array");
-var Caml_string             = require("../../lib/js/caml_string");
 var Caml_builtin_exceptions = require("../../lib/js/caml_builtin_exceptions");
-var $$String                = require("../../lib/js/string");
 var List                    = require("../../lib/js/list");
+
+function compare_elt(_, _$1) {
+  return function () {
+            throw "caml_string_length_based_compare not implemented by bucklescript yet\n";
+          }();
+}
 
 function split(x, tree) {
   if (tree) {
     var r = tree[2];
     var v = tree[1];
     var l = tree[0];
-    var c = Caml_string.caml_string_compare(x, v);
+    var c = function () {
+        throw "caml_string_length_based_compare not implemented by bucklescript yet\n";
+      }();
     if (c) {
       if (c < 0) {
         var match = split(x, l);
@@ -53,7 +59,9 @@ function add(x, tree) {
     var r = tree[2];
     var v = tree[1];
     var l = tree[0];
-    var c = Caml_string.caml_string_compare(x, v);
+    var c = function () {
+        throw "caml_string_length_based_compare not implemented by bucklescript yet\n";
+      }();
     if (c) {
       if (c < 0) {
         return Set_gen.internal_bal(add(x, l), v, r);
@@ -157,11 +165,13 @@ function diff(s1, s2) {
   }
 }
 
-function mem(x, _tree) {
+function mem(_, _tree) {
   while(true) {
     var tree = _tree;
     if (tree) {
-      var c = Caml_string.caml_string_compare(x, tree[1]);
+      var c = function () {
+          throw "caml_string_length_based_compare not implemented by bucklescript yet\n";
+        }();
       if (c) {
         _tree = c < 0 ? tree[0] : tree[2];
         continue ;
@@ -182,7 +192,9 @@ function remove(x, tree) {
     var r = tree[2];
     var v = tree[1];
     var l = tree[0];
-    var c = Caml_string.caml_string_compare(x, v);
+    var c = function () {
+        throw "caml_string_length_based_compare not implemented by bucklescript yet\n";
+      }();
     if (c) {
       if (c < 0) {
         return Set_gen.internal_bal(remove(x, l), v, r);
@@ -201,11 +213,11 @@ function remove(x, tree) {
 }
 
 function compare(s1, s2) {
-  return Set_gen.compare($$String.compare, s1, s2);
+  return Set_gen.compare(compare_elt, s1, s2);
 }
 
 function equal(s1, s2) {
-  return +(Set_gen.compare($$String.compare, s1, s2) === 0);
+  return +(Set_gen.compare(compare_elt, s1, s2) === 0);
 }
 
 function subset(_s1, _s2) {
@@ -219,7 +231,9 @@ function subset(_s1, _s2) {
         var r1 = s1[2];
         var v1 = s1[1];
         var l1 = s1[0];
-        var c = Caml_string.caml_string_compare(v1, s2[1]);
+        var c = function () {
+            throw "caml_string_length_based_compare not implemented by bucklescript yet\n";
+          }();
         if (c) {
           if (c < 0) {
             if (subset(/* Node */[
@@ -270,12 +284,14 @@ function subset(_s1, _s2) {
   };
 }
 
-function find(x, _tree) {
+function find(_, _tree) {
   while(true) {
     var tree = _tree;
     if (tree) {
       var v = tree[1];
-      var c = Caml_string.caml_string_compare(x, v);
+      var c = function () {
+          throw "caml_string_length_based_compare not implemented by bucklescript yet\n";
+        }();
       if (c) {
         _tree = c < 0 ? tree[0] : tree[2];
         continue ;
@@ -306,7 +322,7 @@ function of_list(l) {
           var x3 = match$2[0];
           if (match$3) {
             if (match$3[1]) {
-              return Set_gen.of_sorted_list(List.sort_uniq($$String.compare, l));
+              return Set_gen.of_sorted_list(List.sort_uniq(compare_elt, l));
             }
             else {
               return add(match$3[0], add(x3, add(x2, add(x1, Set_gen.singleton(x0)))));
@@ -341,10 +357,8 @@ function of_array(l) {
 
 function invariant(t) {
   Set_gen.check(t);
-  return Set_gen.is_ordered($$String.compare, t);
+  return Set_gen.is_ordered(compare_elt, t);
 }
-
-var compare_elt = $$String.compare;
 
 var empty = /* Empty */0;
 

@@ -156,5 +156,17 @@ let suites =
         (not (Ext_string.no_slash "/ahgoh" ));
       OUnit.assert_bool __LOC__ 
         (not (Ext_string.no_slash "/ahgoh/" ));            
+    end;
+    __LOC__ >:: begin fun _ -> 
+      let xx = "xxx" in 
+      let yy = "yy" in 
+      let z = (xx ^ yy) in 
+      let zz = (xx ^ yy ^ yy) in 
+      Ounit_tests_util.time ~nums:1000_0000 "fast length compare" begin fun _ -> 
+        Bs_hash_stubs.string_length_based_compare z zz
+      end;
+      Ounit_tests_util.time ~nums:1000_0000 "slow length compare" begin fun _ -> 
+        Ext_string.compare z zz
+      end
     end
   ]
